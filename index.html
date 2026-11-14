@@ -1,205 +1,720 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Photography Portfolio</title>
-<meta name="description" content="Photography portfolio, reviews and contact details.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&family=Newsreader:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#f6f7f8;--ink:#14181d;--mute:#5d6670;--line:#d9dde1;--accent:#0f6b6b;--card:#fff;
-  --head:'Bricolage Grotesque',system-ui,sans-serif;--serif:'Newsreader',Georgia,serif}
-@media(prefers-color-scheme:dark){:root{--bg:#101316;--ink:#eef0f2;--mute:#9aa3ac;--line:#2a3036;--accent:#5fc4c0;--card:#171b1f}}
-*{box-sizing:border-box;margin:0}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--head);-webkit-font-smoothing:antialiased}
-a{color:inherit}
-:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
-.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
-section{padding:88px 0}
-h2{font:800 clamp(28px,4vw,44px)/1.1 var(--head);letter-spacing:-.02em;margin-bottom:28px}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Photography Portfolio</title>
+  <meta name="description" content="Photography portfolio, reviews and contact details.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&family=Newsreader:ital,wght@0,400;1,400&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f6f7f8;
+      --ink: #14181d;
+      --mute: #5d6670;
+      --line: #d9dde1;
+      --accent: #0f6b6b;
+      --card: #fff;
+      --head: 'Bricolage Grotesque', system-ui, sans-serif;
+      --serif: 'Newsreader', Georgia, serif
+    }
 
-/* nav */
-nav{position:fixed;inset:0 0 auto 0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:16px 24px;color:#fff;
-  background:linear-gradient(#0008,#0000)}
-nav b{font-weight:800;letter-spacing:-.01em}
-nav div a{margin-left:22px;text-decoration:none;font-size:15px}
-nav div a:hover{text-decoration:underline}
-@media(max-width:640px){nav div a:not(:last-child){display:none}}
+    @media(prefers-color-scheme:dark) {
+      :root {
+        --bg: #101316;
+        --ink: #eef0f2;
+        --mute: #9aa3ac;
+        --line: #2a3036;
+        --accent: #5fc4c0;
+        --card: #171b1f
+      }
+    }
 
-/* hero slider */
-.hero{position:relative;height:100svh;min-height:520px;background:#222;overflow:hidden;color:#fff}
-.slide{position:absolute;inset:0;opacity:0;transition:opacity 1s}
-.slide.on{opacity:1}
-.slide img,.slide .ph{width:100%;height:100%;object-fit:cover}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(#0000 35%,#000a)}
-.hero-text{position:absolute;z-index:5;left:0;right:0;bottom:12vh}
-.hero h1{font:800 clamp(40px,8vw,104px)/.95 var(--head);letter-spacing:-.04em;max-width:12em}
-.hero p{font:italic 400 clamp(18px,2.4vw,26px) var(--serif);margin:16px 0 26px;max-width:28em}
-.btn{display:inline-block;padding:12px 26px;border-radius:99px;background:#fff;color:#111;text-decoration:none;font-weight:600;border:0;cursor:pointer;font-size:16px}
-.btn.alt{background:var(--accent);color:#fff}
-.arrow{position:absolute;z-index:6;top:50%;translate:0 -50%;width:48px;height:48px;border-radius:50%;border:0;background:#fff3;color:#fff;font-size:22px;cursor:pointer;backdrop-filter:blur(6px)}
-.arrow:hover{background:#fff6}.prev{left:16px}.next{right:16px}
-.dots{position:absolute;z-index:6;bottom:4vh;left:0;right:0;display:flex;gap:10px;justify-content:center}
-.dots button{width:34px;height:4px;border:0;border-radius:4px;background:#fff6;cursor:pointer;padding:0}
-.dots button.on{background:#fff}
+    * {
+      box-sizing: border-box;
+      margin: 0
+    }
 
-/* portfolio */
-.filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px}
-.filters button{padding:8px 20px;border-radius:99px;border:1.5px solid var(--line);background:none;color:var(--ink);font:600 15px var(--head);cursor:pointer}
-.filters button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.grid{columns:3 280px;column-gap:14px}
-.item{break-inside:avoid;margin-bottom:14px;overflow:hidden;border-radius:6px;cursor:zoom-in;position:relative;display:block;width:100%;padding:0;border:0;background:none}
-.item img,.item .ph{width:100%;display:block;transition:transform .5s}
-.item:hover img,.item:hover .ph{transform:scale(1.04)}
-.ph{background:linear-gradient(135deg,hsl(var(--h) 35% 55%),hsl(calc(var(--h) + 40) 40% 30%))}
+    html {
+      scroll-behavior: smooth
+    }
 
-/* lightbox */
-.lb{position:fixed;inset:0;z-index:50;background:#000e;display:none;align-items:center;justify-content:center;padding:24px}
-.lb.open{display:flex}
-.lb img,.lb .ph{max-width:100%;max-height:86vh;border-radius:4px;width:auto;aspect-ratio:3/2;min-width:min(80vw,640px)}
-.lb img{aspect-ratio:auto;min-width:0}
-.lb p{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:#ddd;font:italic 18px var(--serif)}
-.lb .x{position:absolute;top:16px;right:16px;width:44px;height:44px;border-radius:50%;border:0;background:#fff2;color:#fff;font-size:22px;cursor:pointer}
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font: 400 17px/1.6 var(--head);
+      -webkit-font-smoothing: antialiased
+    }
 
-/* reviews */
-.rv-wrap{position:relative}
-.rv{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:6px}
-.rv::-webkit-scrollbar{display:none}
-.rev{flex:0 0 min(420px,86%);scroll-snap-align:start;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:28px}
-.rev q{display:block;font:400 21px/1.45 var(--serif);quotes:none;margin-bottom:20px}
-.rev q::before{content:"\201C";display:block;font:800 52px/.6 var(--head);color:var(--accent)}
-.rev strong{display:block}.rev span{color:var(--mute);font-size:15px}
-.rv-ctl{display:flex;gap:10px;margin-top:18px}
-.rv-ctl button{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);background:none;color:var(--ink);font-size:18px;cursor:pointer}
-.rv-ctl button:hover{background:var(--ink);color:var(--bg)}
+    a {
+      color: inherit
+    }
 
-/* about + contact */
-.two{display:grid;grid-template-columns:1fr 1fr;gap:56px}
-@media(max-width:760px){.two{grid-template-columns:1fr;gap:36px}section{padding:64px 0}}
-.about p{font:400 22px/1.5 var(--serif);max-width:30em}
-.contact ul{list-style:none;padding:0;margin-bottom:24px}
-.contact li{padding:12px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:16px}
-.contact li span{color:var(--mute)}
-.social{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
-.social a{padding:8px 18px;border:1.5px solid var(--line);border-radius:99px;text-decoration:none;font-weight:600;font-size:15px}
-.social a:hover{border-color:var(--accent);color:var(--accent)}
-footer{padding:28px 0;border-top:1px solid var(--line);color:var(--mute);font-size:14px;text-align:center}
-@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
-</style>
+    :focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 3px
+    }
+
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 20px
+    }
+
+    section {
+      padding: 88px 0
+    }
+
+    h2 {
+      font: 800 clamp(28px, 4vw, 44px)/1.1 var(--head);
+      letter-spacing: -.02em;
+      margin-bottom: 28px
+    }
+
+    /* nav */
+    nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 20;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      color: #fff;
+      background: linear-gradient(#0008, #0000)
+    }
+
+    nav b {
+      font-weight: 800;
+      letter-spacing: -.01em
+    }
+
+    nav div a {
+      margin-left: 22px;
+      text-decoration: none;
+      font-size: 15px
+    }
+
+    nav div a:hover {
+      text-decoration: underline
+    }
+
+    @media(max-width:640px) {
+      nav div a:not(:last-child) {
+        display: none
+      }
+    }
+
+    /* hero slider */
+    .hero {
+      position: relative;
+      height: 100svh;
+      min-height: 520px;
+      background: #222;
+      overflow: hidden;
+      color: #fff
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 1s
+    }
+
+    .slide.on {
+      opacity: 1
+    }
+
+    .slide img,
+    .slide .ph {
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(#0000 35%, #000a)
+    }
+
+    .hero-text {
+      position: absolute;
+      z-index: 5;
+      left: 0;
+      right: 0;
+      bottom: 12vh
+    }
+
+    .hero h1 {
+      font: 800 clamp(40px, 8vw, 104px)/.95 var(--head);
+      letter-spacing: -.04em;
+      max-width: 12em
+    }
+
+    .hero p {
+      font: italic 400 clamp(18px, 2.4vw, 26px) var(--serif);
+      margin: 16px 0 26px;
+      max-width: 28em
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 26px;
+      border-radius: 99px;
+      background: #fff;
+      color: #111;
+      text-decoration: none;
+      font-weight: 600;
+      border: 0;
+      cursor: pointer;
+      font-size: 16px
+    }
+
+    .btn.alt {
+      background: var(--accent);
+      color: #fff
+    }
+
+    .arrow {
+      position: absolute;
+      z-index: 6;
+      top: 50%;
+      translate: 0 -50%;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 0;
+      background: #fff3;
+      color: #fff;
+      font-size: 22px;
+      cursor: pointer;
+      backdrop-filter: blur(6px)
+    }
+
+    .arrow:hover {
+      background: #fff6
+    }
+
+    .prev {
+      left: 16px
+    }
+
+    .next {
+      right: 16px
+    }
+
+    .dots {
+      position: absolute;
+      z-index: 6;
+      bottom: 4vh;
+      left: 0;
+      right: 0;
+      display: flex;
+      gap: 10px;
+      justify-content: center
+    }
+
+    .dots button {
+      width: 34px;
+      height: 4px;
+      border: 0;
+      border-radius: 4px;
+      background: #fff6;
+      cursor: pointer;
+      padding: 0
+    }
+
+    .dots button.on {
+      background: #fff
+    }
+
+    /* portfolio */
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 28px
+    }
+
+    .filters button {
+      padding: 8px 20px;
+      border-radius: 99px;
+      border: 1.5px solid var(--line);
+      background: none;
+      color: var(--ink);
+      font: 600 15px var(--head);
+      cursor: pointer
+    }
+
+    .filters button.on {
+      background: var(--ink);
+      color: var(--bg);
+      border-color: var(--ink)
+    }
+
+    .grid {
+      columns: 3 280px;
+      column-gap: 14px
+    }
+
+    .item {
+      break-inside: avoid;
+      margin-bottom: 14px;
+      overflow: hidden;
+      border-radius: 6px;
+      cursor: zoom-in;
+      position: relative;
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: 0;
+      background: none
+    }
+
+    .item img,
+    .item .ph {
+      width: 100%;
+      display: block;
+      transition: transform .5s
+    }
+
+    .item:hover img,
+    .item:hover .ph {
+      transform: scale(1.04)
+    }
+
+    .ph {
+      background: linear-gradient(135deg, hsl(var(--h) 35% 55%), hsl(calc(var(--h) + 40) 40% 30%))
+    }
+
+    /* lightbox */
+    .lb {
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      background: #000e;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px
+    }
+
+    .lb.open {
+      display: flex
+    }
+
+    .lb img,
+    .lb .ph {
+      max-width: 100%;
+      max-height: 86vh;
+      border-radius: 4px;
+      width: auto;
+      aspect-ratio: 3/2;
+      min-width: min(80vw, 640px)
+    }
+
+    .lb img {
+      aspect-ratio: auto;
+      min-width: 0
+    }
+
+    .lb p {
+      position: absolute;
+      bottom: 18px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      color: #ddd;
+      font: italic 18px var(--serif)
+    }
+
+    .lb .x {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 0;
+      background: #fff2;
+      color: #fff;
+      font-size: 22px;
+      cursor: pointer
+    }
+
+    /* reviews */
+    .rv-wrap {
+      position: relative
+    }
+
+    .rv {
+      display: flex;
+      gap: 18px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      padding-bottom: 6px
+    }
+
+    .rv::-webkit-scrollbar {
+      display: none
+    }
+
+    .rev {
+      flex: 0 0 min(420px, 86%);
+      scroll-snap-align: start;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 28px
+    }
+
+    .rev q {
+      display: block;
+      font: 400 21px/1.45 var(--serif);
+      quotes: none;
+      margin-bottom: 20px
+    }
+
+    .rev q::before {
+      content: "\201C";
+      display: block;
+      font: 800 52px/.6 var(--head);
+      color: var(--accent)
+    }
+
+    .rev strong {
+      display: block
+    }
+
+    .rev span {
+      color: var(--mute);
+      font-size: 15px
+    }
+
+    .rv-ctl {
+      display: flex;
+      gap: 10px;
+      margin-top: 18px
+    }
+
+    .rv-ctl button {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1.5px solid var(--line);
+      background: none;
+      color: var(--ink);
+      font-size: 18px;
+      cursor: pointer
+    }
+
+    .rv-ctl button:hover {
+      background: var(--ink);
+      color: var(--bg)
+    }
+
+    /* about + contact */
+    .two {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px
+    }
+
+    @media(max-width:760px) {
+      .two {
+        grid-template-columns: 1fr;
+        gap: 36px
+      }
+
+      section {
+        padding: 64px 0
+      }
+    }
+
+    .about p {
+      font: 400 22px/1.5 var(--serif);
+      max-width: 30em
+    }
+
+    .contact ul {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 24px
+    }
+
+    .contact li {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      gap: 16px
+    }
+
+    .contact li span {
+      color: var(--mute)
+    }
+
+    .social {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px
+    }
+
+    .social a {
+      padding: 8px 18px;
+      border: 1.5px solid var(--line);
+      border-radius: 99px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px
+    }
+
+    .social a:hover {
+      border-color: var(--accent);
+      color: var(--accent)
+    }
+
+    footer {
+      padding: 28px 0;
+      border-top: 1px solid var(--line);
+      color: var(--mute);
+      font-size: 14px;
+      text-align: center
+    }
+
+    @media(max-width:640px) {
+      body {
+        font-size: 16px
+      }
+
+      .hero {
+        height: 80svh;
+        min-height: 420px
+      }
+
+      .hero h1 {
+        font-size: clamp(34px, 11vw, 52px)
+      }
+
+      .hero p {
+        font-size: 18px;
+        margin: 12px 0 20px
+      }
+
+      .hero-text {
+        bottom: 14vh
+      }
+
+      .arrow {
+        width: 38px;
+        height: 38px;
+        font-size: 18px
+      }
+
+      .prev {
+        left: 8px
+      }
+
+      .next {
+        right: 8px
+      }
+
+      .grid {
+        columns: 2;
+        column-gap: 8px
+      }
+
+      .item {
+        margin-bottom: 8px
+      }
+
+      .wrap {
+        padding: 0 16px
+      }
+
+      section {
+        padding: 56px 0
+      }
+
+      h2 {
+        margin-bottom: 20px
+      }
+
+      .rev {
+        padding: 22px
+      }
+
+      .rev q {
+        font-size: 18px
+      }
+
+      .about p {
+        font-size: 19px
+      }
+
+      .lb {
+        padding: 12px
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+      * {
+        transition: none !important;
+        scroll-behavior: auto !important
+      }
+    }
+  </style>
 </head>
+
 <body>
-<nav><b id="brand"></b><div><a href="#work">Portfolio</a><a href="#reviews">Reviews</a><a href="#about">About</a><a href="#contact">Contact</a></div></nav>
+  <nav><b id="brand"></b>
+    <div><a href="#work">Portfolio</a><a href="#reviews">Reviews</a><a href="#about">About</a><a
+        href="#contact">Contact</a></div>
+  </nav>
 
-<header class="hero" aria-label="Featured photos">
-  <div id="slides"></div>
-  <div class="hero-text"><div class="wrap">
-    <h1 id="tagline"></h1>
-    <p id="sub"></p>
-    <a class="btn" href="#contact">Book a shoot</a>
-  </div></div>
-  <button class="arrow prev" aria-label="Previous photo">&#8592;</button>
-  <button class="arrow next" aria-label="Next photo">&#8594;</button>
-  <div class="dots" id="dots"></div>
-</header>
+  <header class="hero" aria-label="Featured photos">
+    <div id="slides"></div>
+    <div class="hero-text">
+      <div class="wrap">
+        <h1 id="tagline"></h1>
+        <p id="sub"></p>
+        <a class="btn" href="#contact">Book a shoot</a>
+      </div>
+    </div>
+    <button class="arrow prev" aria-label="Previous photo">&#8592;</button>
+    <button class="arrow next" aria-label="Next photo">&#8594;</button>
+    <div class="dots" id="dots"></div>
+  </header>
 
-<section id="work"><div class="wrap">
-  <h2>Portfolio</h2>
-  <div class="filters" id="filters"></div>
-  <div class="grid" id="grid"></div>
-</div></section>
+  <section id="work">
+    <div class="wrap">
+      <h2>Portfolio</h2>
+      <div class="filters" id="filters"></div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
 
-<section id="reviews" style="background:color-mix(in srgb,var(--ink) 4%,var(--bg))"><div class="wrap">
-  <h2>What clients say</h2>
-  <div class="rv-wrap"><div class="rv" id="rv"></div></div>
-  <div class="rv-ctl"><button id="rp" aria-label="Previous review">&#8592;</button><button id="rn" aria-label="Next review">&#8594;</button></div>
-</div></section>
+  <section id="reviews" style="background:color-mix(in srgb,var(--ink) 4%,var(--bg))">
+    <div class="wrap">
+      <h2>What clients say</h2>
+      <div class="rv-wrap">
+        <div class="rv" id="rv"></div>
+      </div>
+      <div class="rv-ctl"><button id="rp" aria-label="Previous review">&#8592;</button><button id="rn"
+          aria-label="Next review">&#8594;</button></div>
+    </div>
+  </section>
 
-<section id="about"><div class="wrap two">
-  <div class="about"><h2>About</h2><p id="about-text"></p></div>
-  <div class="contact" id="contact"><h2>Get in touch</h2>
-    <ul id="contact-list"></ul>
-    <a class="btn alt" id="wa" href="#" target="_blank" rel="noopener">Message on WhatsApp</a>
-    <div class="social" id="social"></div>
+  <section id="about">
+    <div class="wrap two">
+      <div class="about">
+        <h2>About</h2>
+        <p id="about-text"></p>
+      </div>
+      <div class="contact" id="contact">
+        <h2>Get in touch</h2>
+        <ul id="contact-list"></ul>
+        <a class="btn alt" id="wa" href="#" target="_blank" rel="noopener">Message on WhatsApp</a>
+        <div class="social" id="social"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">&copy; <span id="yr"></span> <span id="foot"></span></div>
+  </footer>
+
+  <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer">
+    <button class="x" aria-label="Close">&#10005;</button>
+    <button class="arrow prev" id="lp" aria-label="Previous">&#8592;</button>
+    <div id="lbimg"></div>
+    <p id="lbcap"></p>
+    <button class="arrow next" id="ln" aria-label="Next">&#8594;</button>
   </div>
-</div></section>
 
-<footer><div class="wrap">&copy; <span id="yr"></span> <span id="foot"></span></div></footer>
+  <script src="data.js"></script>
+  <script>
+    const $ = s => document.querySelector(s);
+    const esc = t => String(t || "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    const ratios = ["3/4", "4/3", "1/1", "4/5", "3/2"];
 
-<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer">
-  <button class="x" aria-label="Close">&#10005;</button>
-  <button class="arrow prev" id="lp" aria-label="Previous">&#8592;</button>
-  <div id="lbimg"></div><p id="lbcap"></p>
-  <button class="arrow next" id="ln" aria-label="Next">&#8594;</button>
-</div>
+    // image with gradient fallback when the file isn't uploaded yet
+    function pic(src, alt, i, lazy) {
+      const im = new Image(); im.src = src; im.alt = alt || ""; if (lazy) im.loading = "lazy";
+      im.onerror = () => {
+        const d = document.createElement("div"); d.className = "ph";
+        d.style.cssText = `--h:${(i * 47 + 190) % 360};aspect-ratio:${ratios[i % 5]}`; d.role = "img"; d.setAttribute("aria-label", alt || ""); im.replaceWith(d)
+      };
+      return im;
+    }
 
-<script src="data.js"></script>
-<script>
-const $=s=>document.querySelector(s);
-const esc=t=>String(t||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const ratios=["3/4","4/3","1/1","4/5","3/2"];
+    // header text
+    document.title = SITE.business;
+    $("#brand").textContent = SITE.business; $("#tagline").textContent = SITE.name;
+    $("#sub").textContent = SITE.tagline; $("#about-text").textContent = SITE.about;
+    $("#foot").textContent = SITE.business; $("#yr").textContent = new Date().getFullYear();
 
-// image with gradient fallback when the file isn't uploaded yet
-function pic(src,alt,i,lazy){
-  const im=new Image();im.src=src;im.alt=alt||"";if(lazy)im.loading="lazy";
-  im.onerror=()=>{const d=document.createElement("div");d.className="ph";
-    d.style.cssText=`--h:${(i*47+190)%360};aspect-ratio:${ratios[i%5]}`;d.role="img";d.setAttribute("aria-label",alt||"");im.replaceWith(d)};
-  return im;
-}
+    // hero slider
+    let cur = 0, timer;
+    const slides = SITE.hero.map((h, i) => { const s = document.createElement("div"); s.className = "slide"; const im = pic(h.src, h.caption, i + 2, false); im.style.objectPosition = h.focus || 'center'; s.appendChild(im); $("#slides").appendChild(s); return s });
+    const dots = SITE.hero.map((_, i) => { const b = document.createElement("button"); b.setAttribute("aria-label", "Show photo " + (i + 1)); b.onclick = () => { go(i); auto() }; $("#dots").appendChild(b); return b });
+    function go(n) { cur = (n + slides.length) % slides.length; slides.forEach((s, i) => s.classList.toggle("on", i === cur)); dots.forEach((d, i) => d.classList.toggle("on", i === cur)) }
+    function auto() { clearInterval(timer); if (!matchMedia("(prefers-reduced-motion:reduce)").matches) timer = setInterval(() => go(cur + 1), 5500) }
+    document.querySelector(".hero .prev").onclick = () => { go(cur - 1); auto() };
+    document.querySelector(".hero .next").onclick = () => { go(cur + 1); auto() };
+    go(0); auto();
 
-// header text
-document.title=SITE.business;
-$("#brand").textContent=SITE.business;$("#tagline").textContent=SITE.name;
-$("#sub").textContent=SITE.tagline;$("#about-text").textContent=SITE.about;
-$("#foot").textContent=SITE.business;$("#yr").textContent=new Date().getFullYear();
+    // portfolio grid + filters + lightbox
+    let shown = [], li = 0, filter = "All";
+    function render() {
+      shown = SITE.photos.filter(p => filter === "All" || p.cat === filter);
+      const g = $("#grid"); g.innerHTML = "";
+      shown.forEach((p, i) => {
+        const b = document.createElement("button"); b.className = "item"; b.setAttribute("aria-label", "Open: " + (p.alt || "photo"));
+        b.appendChild(pic(p.src, p.alt, SITE.photos.indexOf(p), true)); b.onclick = () => open(i); g.appendChild(b)
+      });
+    }
+    ["All", ...SITE.categories].forEach(c => {
+      const b = document.createElement("button"); b.textContent = c; if (c === "All") b.className = "on";
+      b.onclick = () => { filter = c; document.querySelectorAll("#filters button").forEach(x => x.classList.toggle("on", x === b)); render() }; $("#filters").appendChild(b)
+    });
+    render();
 
-// hero slider
-let cur=0,timer;
-const slides=SITE.hero.map((h,i)=>{const s=document.createElement("div");s.className="slide";s.appendChild(pic(h.src,h.caption,i+2,false));$("#slides").appendChild(s);return s});
-const dots=SITE.hero.map((_,i)=>{const b=document.createElement("button");b.setAttribute("aria-label","Show photo "+(i+1));b.onclick=()=>{go(i);auto()};$("#dots").appendChild(b);return b});
-function go(n){cur=(n+slides.length)%slides.length;slides.forEach((s,i)=>s.classList.toggle("on",i===cur));dots.forEach((d,i)=>d.classList.toggle("on",i===cur))}
-function auto(){clearInterval(timer);if(!matchMedia("(prefers-reduced-motion:reduce)").matches)timer=setInterval(()=>go(cur+1),5500)}
-document.querySelector(".hero .prev").onclick=()=>{go(cur-1);auto()};
-document.querySelector(".hero .next").onclick=()=>{go(cur+1);auto()};
-go(0);auto();
+    const lb = $("#lb");
+    function show() { const p = shown[li]; $("#lbimg").replaceChildren(pic(p.src, p.alt, SITE.photos.indexOf(p), false)); $("#lbcap").textContent = p.alt || "" }
+    function open(i) { li = i; show(); lb.classList.add("open"); document.body.style.overflow = "hidden" }
+    function close() { lb.classList.remove("open"); document.body.style.overflow = "" }
+    function step(d) { li = (li + d + shown.length) % shown.length; show() }
+    lb.querySelector(".x").onclick = close; $("#lp").onclick = () => step(-1); $("#ln").onclick = () => step(1);
+    lb.onclick = e => { if (e.target === lb) close() };
+    addEventListener("keydown", e => {
+      if (!lb.classList.contains("open")) return;
+      if (e.key === "Escape") close(); if (e.key === "ArrowLeft") step(-1); if (e.key === "ArrowRight") step(1)
+    });
 
-// portfolio grid + filters + lightbox
-let shown=[],li=0,filter="All";
-function render(){
-  shown=SITE.photos.filter(p=>filter==="All"||p.cat===filter);
-  const g=$("#grid");g.innerHTML="";
-  shown.forEach((p,i)=>{const b=document.createElement("button");b.className="item";b.setAttribute("aria-label","Open: "+(p.alt||"photo"));
-    b.appendChild(pic(p.src,p.alt,SITE.photos.indexOf(p),true));b.onclick=()=>open(i);g.appendChild(b)});
-}
-["All",...SITE.categories].forEach(c=>{const b=document.createElement("button");b.textContent=c;if(c==="All")b.className="on";
-  b.onclick=()=>{filter=c;document.querySelectorAll("#filters button").forEach(x=>x.classList.toggle("on",x===b));render()};$("#filters").appendChild(b)});
-render();
+    // reviews
+    $("#rv").innerHTML = SITE.reviews.map(r => `<figure class="rev"><q>${esc(r.text)}</q><strong>${esc(r.name)}</strong><span>${esc(r.place)}</span></figure>`).join("");
+    $("#rp").onclick = () => $("#rv").scrollBy({ left: -340, behavior: "smooth" });
+    $("#rn").onclick = () => $("#rv").scrollBy({ left: 340, behavior: "smooth" });
 
-const lb=$("#lb");
-function show(){const p=shown[li];$("#lbimg").replaceChildren(pic(p.src,p.alt,SITE.photos.indexOf(p),false));$("#lbcap").textContent=p.alt||""}
-function open(i){li=i;show();lb.classList.add("open");document.body.style.overflow="hidden"}
-function close(){lb.classList.remove("open");document.body.style.overflow=""}
-function step(d){li=(li+d+shown.length)%shown.length;show()}
-lb.querySelector(".x").onclick=close;$("#lp").onclick=()=>step(-1);$("#ln").onclick=()=>step(1);
-lb.onclick=e=>{if(e.target===lb)close()};
-addEventListener("keydown",e=>{if(!lb.classList.contains("open"))return;
-  if(e.key==="Escape")close();if(e.key==="ArrowLeft")step(-1);if(e.key==="ArrowRight")step(1)});
-
-// reviews
-$("#rv").innerHTML=SITE.reviews.map(r=>`<figure class="rev"><q>${esc(r.text)}</q><strong>${esc(r.name)}</strong><span>${esc(r.place)}</span></figure>`).join("");
-$("#rp").onclick=()=>$("#rv").scrollBy({left:-340,behavior:"smooth"});
-$("#rn").onclick=()=>$("#rv").scrollBy({left:340,behavior:"smooth"});
-
-// contact + social
-const c=SITE.contact,rows=[];
-if(c.email)rows.push(["Email",`<a href="mailto:${esc(c.email)}">${esc(c.email)}</a>`]);
-if(c.phone)rows.push(["Phone",`<a href="tel:${esc(c.phone.replace(/\s/g,""))}">${esc(c.phone)}</a>`]);
-if(c.location)rows.push(["Based in",esc(c.location)]);
-$("#contact-list").innerHTML=rows.map(r=>`<li><span>${r[0]}</span><b>${r[1]}</b></li>`).join("");
-c.whatsapp?$("#wa").href="https://wa.me/"+c.whatsapp.replace(/\D/g,""):$("#wa").remove();
-$("#social").innerHTML=SITE.social.map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.label)}</a>`).join("");
-</script>
+    // contact + social
+    const c = SITE.contact, rows = [];
+    if (c.email) rows.push(["Email", `<a href="mailto:${esc(c.email)}">${esc(c.email)}</a>`]);
+    if (c.phone) rows.push(["Phone", `<a href="tel:${esc(c.phone.replace(/\s/g, ""))}">${esc(c.phone)}</a>`]);
+    if (c.location) rows.push(["Based in", esc(c.location)]);
+    $("#contact-list").innerHTML = rows.map(r => `<li><span>${r[0]}</span><b>${r[1]}</b></li>`).join("");
+    c.whatsapp ? $("#wa").href = "https://wa.me/" + c.whatsapp.replace(/\D/g, "") : $("#wa").remove();
+    $("#social").innerHTML = SITE.social.map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.label)}</a>`).join("");
+  </script>
 </body>
+
 </html>
